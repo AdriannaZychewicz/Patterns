@@ -5,16 +5,8 @@ import java.util.List;
 /**
  * Created by ada on 10.03.15.
  */
-public class LogDAO {
+public interface LogDAO {
+    void addEntry(String message);
 
-    public void addEntry(String message){
-
-
-
-    }
-
-    public List<Log> getEntries(int number){
-
-        return null;
-    }
+    List<Log> getEntries(int number);
 }

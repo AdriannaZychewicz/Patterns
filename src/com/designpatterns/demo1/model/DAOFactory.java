@@ -3,17 +3,25 @@ package com.designpatterns.demo1.model;
 /**
  * Created by ada on 10.03.15.
  */
-public class DAOFactory {
+public abstract class DAOFactory {
 
+    public static final int MYSQL = 0;
+    public static final int ORACLE = 1;
 
-    public static PersonDAO getPersonDAO(){
+    public abstract PersonDAO getPersonDAO();
 
-        return new PersonDAO();
+    public abstract LogDAO getLogDAO();
+
+    public static DAOFactory getDAOFactory(int type){
+        switch (type){
+
+            case MYSQL:
+                return new MySQLDAOFactory();
+            case ORACLE:
+                return new OracleDAOFactory();
+            default:
+                return null;
+        }
+
     }
-
-    public static LogDAO getLogDAO(){
-
-        return  new LogDAO();
-    }
-
 }
