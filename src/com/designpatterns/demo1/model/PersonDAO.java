@@ -1,5 +1,11 @@
 package com.designpatterns.demo1.model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -10,21 +16,54 @@ import java.util.List;
 public class PersonDAO {
 
 
-    public void addPerson(Person person){
+    public int addPerson(Person person) throws SQLException {
 
+        Connection conn = Database.getInstance().getConnection();
+        PreparedStatement p = conn.prepareStatement("insert into people (name, password) values (?,?)");
+        p.setString(1, person.getName());
+        p.setString(2, person.getPassword());
+        int updated = p.executeUpdate();
+        p.close();
 
+        return updated;
+    }
+
+    public Person getPerson(int id) throws SQLException {
+
+        List<Person> people  = new ArrayList<Person>();
+        Connection conn = Database.getInstance().getConnection();
+        String sql = "select id, name, password from people ordey by id";
+        Statement selectedStatement = conn.createStatement();
+        ResultSet results = selectedStatement.executeQuery(sql);
+         return null;
 
     }
 
-    public Person gerPerson(int id){
+    public List<Person> getPeople() throws SQLException {
 
-        return null;
+        List<Person> people = new ArrayList<Person>();
 
-    }
+        Connection conn = Database.getInstance().getConnection();
 
-    public List<Person> getPeople(){
+        String sql = "select id, name, password from people order by id";
+        Statement selectStatement = conn.createStatement();
 
-        return null;
+        ResultSet results = selectStatement.executeQuery(sql);
+
+        while(results.next()) {
+            int id = results.getInt("id");
+            String name = results.getString("name");
+            String password = results.getString("password");
+
+            Person person = new Person(id, name, password);
+            people.add(person);
+        }
+
+        results.close();
+        selectStatement.close();
+
+        return people;
+
 
     }
 

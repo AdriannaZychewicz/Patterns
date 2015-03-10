@@ -15,7 +15,11 @@ public class Database {
 
     private Database(){
 
-
+        try {
+            this.connect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -40,6 +44,11 @@ public class Database {
 //    }
 
 
+    public Connection getConnection(){
+
+        return con;
+
+    }
     public void connect() throws Exception {
         if (con != null)
             return;
@@ -50,9 +59,9 @@ public class Database {
             throw new Exception("Driver not found");
         }
 
-        String url = String.format("jdbc:mysql://localhost:%d/patterns", 3306);
+        String url = String.format("jdbc:mysql://localhost:%d/mydb", 3306);
 
-        con = DriverManager.getConnection(url, "squiffy", "letmein");
+        con = DriverManager.getConnection(url, "root", "ada123");
     }
 
     public void disconnect() {
