@@ -11,7 +11,7 @@ public class DAOFactory {
         return new PersonDAO();
     }
 
-    public LogDAO getLogDAO(){
+    public static LogDAO getLogDAO(){
 
         return  new LogDAO();
     }
