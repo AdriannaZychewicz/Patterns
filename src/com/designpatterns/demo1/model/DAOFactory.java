@@ -12,9 +12,8 @@ public abstract class DAOFactory {
 
     public abstract LogDAO getLogDAO();
 
-    public static DAOFactory getDAOFactory(int type){
-        switch (type){
-
+    public static DAOFactory getFactory(int type) {
+        switch(type) {
             case MYSQL:
                 return new MySQLDAOFactory();
             case ORACLE:
@@ -22,6 +21,6 @@ public abstract class DAOFactory {
             default:
                 return null;
         }
-
     }
+
 }
